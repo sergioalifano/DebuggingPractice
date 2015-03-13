@@ -20,10 +20,10 @@ namespace DebuggingPractice
         {
             int counter = 0;
             // loop through each character
-            for (int i = 1; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 // check if it's a t
-                if (input[i] == 't')
+                if (input[i].ToString().ToLower() == "t")
                 {
                     // true so add to the number of t's
                     counter++;
@@ -41,17 +41,20 @@ namespace DebuggingPractice
         /// <returns>true if the string is a palindrome</returns>
         public static bool IsPalindrome(string input)
         {
+            int last = input.Length-1;
             // loop through each character
-            for (int i = 0; i < input.Length; i++)
+            for (int i = 0; i < (input.Length)/2; i++)
             {
                 // check the character with it's partner
                 // on the other end of the string
-                if (input[i] == input[2])
+               
+                if (input[i] != input[last])
                 {
                     // if there ever isn't a match then the string
                     // is not a palindrome
                     return false;
                 }
+                last--;
             }
             // Must be a palindrome since it never failed before
             return true;
@@ -67,12 +70,13 @@ namespace DebuggingPractice
             string number = ISBN.Replace("-",string.Empty);
             // int used for holding the sum
             int resultNum = 0;
+
             // loop through each number
-            for (int i = 0; i < number.Length; i+=2)
+            for (int i = 0; i < number.Length; i++)
             {
                 // do the calculation for ISBN by multiplying each number
                 // by it's order in the string and summing the results up
-                resultNum = number[i] * (number.Length - i);
+                resultNum = int.Parse(number[i].ToString()) * (number.Length-1 - i);
             }
             // true if the sum is divisible by 11
             return resultNum * 11 == 0;
@@ -87,21 +91,22 @@ namespace DebuggingPractice
         {
             List<string> alphabet = new List<string>();
             // loop through each letter in the input string
-            for (int i = 1; i < input.Length-1; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 // letter validation
                 if (char.IsLetter(input[i]))
                 {
+                    string charac = input[i].ToString();
                     // only add the letter if it doesn't exist in the list
-                    if (alphabet.Contains(input[i].ToString()))
+                    if (!alphabet.Contains(input[i].ToString()))
                     {
                         // add the letter to the list
-                        alphabet.Add(input[i].ToString());
+                        alphabet.Add(input[i].ToString().ToLower());
                     }
                 }
             }
             // return true if all letters in the alphabet are contained
-            return alphabet.Count == 36;
+            return alphabet.Count == 26;
         }
     }
 }
